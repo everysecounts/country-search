@@ -1,3 +1,5 @@
+import { HttpError } from '@/api/HttpError';
+
 async function searchCountries(query: string, signal: AbortSignal): Promise<unknown[]> {
   const url = `https://countries.dev/name/${encodeURIComponent(query)}`;
 
@@ -5,6 +7,14 @@ async function searchCountries(query: string, signal: AbortSignal): Promise<unkn
     method: 'GET',
     signal,
   });
+
+  if (response.status === 404) {
+    return [];
+  }
+
+  if (!response.ok) {
+    throw new HttpError(response.status);
+  }
 
   return (await response.json()) as unknown[];
 }
