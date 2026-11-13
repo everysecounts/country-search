@@ -1,9 +1,22 @@
+import { HttpError } from '@/api/HttpError';
 import type { SearchErrorType } from '@/types/searchError';
 
 function getSearchErrorType(error: unknown): SearchErrorType {
-  void error;
+  if (error instanceof HttpError) {
+    return 'http';
+  }
 
-  throw new Error('Not implemented');
+  if (typeof error === 'object' && error !== null && 'name' in error) {
+    if (error.name === 'AbortError') {
+      return 'abort';
+    }
+
+    if (error.name === 'TimeoutError') {
+      return 'timeout';
+    }
+  }
+
+  return 'network';
 }
 
 export { getSearchErrorType };
