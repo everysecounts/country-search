@@ -1,8 +1,12 @@
 async function searchCountries(query: string, signal: AbortSignal): Promise<unknown[]> {
-  void query;
-  void signal;
+  const url = `https://countries.dev/name/${encodeURIComponent(query)}`;
 
-  throw new Error('Not implemented');
+  const response = await fetch(url, {
+    method: 'GET',
+    signal,
+  });
+
+  return (await response.json()) as unknown[];
 }
 
 export { searchCountries };
