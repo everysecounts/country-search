@@ -39,16 +39,3 @@ body {
     pointer-events: none;
   }
 }
-
-@media (width <= 900px) {
-  body {
-    padding: 32px 20px;
-  }
-}
-
-@media (width <= 480px) {
-  body {
-    gap: 24px;
-    padding: 24px 16px;
-  }
-}

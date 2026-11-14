@@ -20,6 +20,26 @@ function createHeader(): {
     },
   });
 
+  const clearButton = createElement('button', {
+    className: styles.clearButton,
+    attributes: {
+      type: 'button',
+      'aria-label': 'Clear search',
+      hidden: '',
+    },
+    textContent: '×',
+  });
+
+  clearButton.addEventListener('click', () => {
+    input.value = '';
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    input.focus();
+  });
+
+  input.addEventListener('input', () => {
+    clearButton.hidden = input.value.length === 0;
+  });
+
   const search = createElement(
     'div',
     {
@@ -31,6 +51,7 @@ function createHeader(): {
         attributes: { 'aria-hidden': 'true' },
       }),
       input,
+      clearButton,
     ],
   );
 

@@ -1,21 +1,23 @@
 .card {
-  width: 100%;
-  color: inherit;
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
   display: grid;
-  grid-template-columns: 48px minmax(0, 1fr) minmax(90px, 0.6fr) auto;
+  grid-template-columns: 48px minmax(0, 1fr) 100px 130px;
   align-items: center;
   gap: 16px;
+  width: 100%;
   padding: 14px;
   border: 1px solid var(--color-border);
   border-radius: 10px;
   background: var(--color-surface);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
   transition: background-color 180ms ease;
 
-  &:hover {
-    background: var(--color-surface-hover);
+  @media (hover: hover) {
+    &:hover {
+      background: var(--color-surface-hover);
+    }
   }
 }
 
@@ -36,7 +38,6 @@
 
 .name {
   overflow: hidden;
-  margin: 0;
   color: var(--color-text);
   font-size: 16px;
   font-weight: 600;
@@ -51,6 +52,10 @@
   font-size: 14px;
 }
 
+.region {
+  text-align: center;
+}
+
 .population {
   text-align: right;
   white-space: nowrap;
@@ -58,13 +63,14 @@
 
 @media (width <= 600px) {
   .card {
-    grid-template-columns: 36px minmax(0, 1fr);
-    gap: 10px;
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 10px 16px;
   }
 
   .flag {
-    grid-row: span 2;
-    font-size: 26px;
+    grid-row: 1;
+    width: 48px;
+    height: 32px;
   }
 
   .region,
