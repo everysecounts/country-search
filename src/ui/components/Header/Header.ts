@@ -1,9 +1,14 @@
 import styles from './header.module.css';
 import { createElement } from '@/utils/createElement';
+import { createSearchHistory } from '@/ui/components/SearchHistory';
 
 function createHeader(): {
   element: HTMLElement;
+  searchSection: HTMLElement;
   input: HTMLInputElement;
+  history: HTMLElement;
+  historyList: HTMLElement;
+  historyClearButton: HTMLButtonElement;
 } {
   const title = createElement('h1', {
     className: styles.headerTitle,
@@ -55,15 +60,36 @@ function createHeader(): {
     ],
   );
 
+  const {
+    element: history,
+    list: historyList,
+    clearButton: historyClearButton,
+  } = createSearchHistory();
+
+  const searchSection = createElement(
+    'div',
+    {
+      className: styles.searchSection,
+    },
+    [search, history],
+  );
+
   const element = createElement(
     'header',
     {
       className: styles.header,
     },
-    [title, search],
+    [title, searchSection],
   );
 
-  return { element, input };
+  return {
+    element,
+    searchSection,
+    input,
+    history,
+    historyList,
+    historyClearButton,
+  };
 }
 
 export { createHeader };
