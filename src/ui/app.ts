@@ -1,6 +1,8 @@
 import { createHeader } from '@/ui/components/Header';
 import { createMain } from '@/ui/components/Main';
 import { renderCountries, renderError, renderMessage } from '@/ui/components/SearchResults';
+import { renderCountryDetails } from '@/ui/components/CountryDetails';
+import type { CountryCard } from '@/types/country';
 import type { SearchState } from '@/types/searchController';
 import { createSearchController } from '@/utils/searchController';
 
@@ -10,12 +12,18 @@ function createApp(root: HTMLElement): void {
 
   const controller = createSearchController(renderState);
 
+  function selectCountry(country: CountryCard): void {
+    renderCountryDetails(details, country);
+    details.hidden = false;
+  }
+
   function renderState(state: SearchState): void {
     main.hidden = state.status === 'idle';
     details.hidden = true;
 
     if (state.status === 'idle') {
       results.replaceChildren();
+      details.replaceChildren();
       return;
     }
 
@@ -25,12 +33,13 @@ function createApp(root: HTMLElement): void {
     }
 
     if (state.status === 'success') {
-      renderCountries(results, state.countries);
+      renderCountries(results, state.countries, selectCountry);
       return;
     }
 
     if (state.status === 'empty') {
       renderMessage(results, 'No countries found.');
+      details.replaceChildren();
       return;
     }
 
@@ -42,6 +51,7 @@ function createApp(root: HTMLElement): void {
     };
 
     renderError(results, errorMessages[state.errorType ?? 'network'], () => controller.retry());
+    details.replaceChildren();
   }
 
   input.addEventListener('input', () => {

@@ -13,8 +13,12 @@ function createSearchResults(): HTMLElement {
   });
 }
 
-function renderCountries(container: HTMLElement, countries: CountryCard[]): void {
-  const cards = countries.map(createCountryCard);
+function renderCountries(
+  container: HTMLElement,
+  countries: CountryCard[],
+  onSelect: (country: CountryCard) => void,
+): void {
+  const cards = countries.map((country) => createCountryCard(country, onSelect));
   container.replaceChildren(...cards);
 }
 

@@ -1,1 +1,1 @@
-export { createCountryDetails } from './CountryDetails';
+export { createCountryDetails, renderCountryDetails } from './CountryDetails';

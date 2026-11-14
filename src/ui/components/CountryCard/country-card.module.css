@@ -1,4 +1,9 @@
 .card {
+  width: 100%;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
   display: grid;
   grid-template-columns: 48px minmax(0, 1fr) minmax(90px, 0.6fr) auto;
   align-items: center;

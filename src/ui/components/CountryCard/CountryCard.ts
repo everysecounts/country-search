@@ -2,7 +2,10 @@ import type { CountryCard as CountryCardData } from '@/types/country';
 import { createElement } from '@/utils/createElement';
 import styles from './country-card.module.css';
 
-function createCountryCard(country: CountryCardData): HTMLElement {
+function createCountryCard(
+  country: CountryCardData,
+  onSelect: (country: CountryCardData) => void,
+): HTMLElement {
   const flag = createElement('span', {
     className: styles.flag,
     textContent: country.flag,
@@ -31,7 +34,23 @@ function createCountryCard(country: CountryCardData): HTMLElement {
 
   const info = createElement('div', { className: styles.info }, [name, capital]);
 
-  return createElement('article', { className: styles.card }, [flag, info, region, population]);
+  const card = createElement(
+    'button',
+    {
+      className: styles.card,
+      attributes: {
+        type: 'button',
+        'aria-label': `Show details for ${country.name}`,
+      },
+    },
+    [flag, info, region, population],
+  );
+
+  card.addEventListener('click', () => {
+    onSelect(country);
+  });
+
+  return card;
 }
 
 export { createCountryCard };
