@@ -1,21 +1,26 @@
 import { createCountryDetails } from '@/ui/components/CountryDetails';
 import { createSearchResults } from '@/ui/components/SearchResults';
 import { createElement } from '@/utils/createElement';
+import styles from './main.module.css';
 
-function createMain(): HTMLElement {
+function createMain(): {
+  element: HTMLElement;
+  results: HTMLElement;
+  details: HTMLElement;
+} {
   const results = createSearchResults();
   const details = createCountryDetails();
 
-  return createElement(
+  const element = createElement(
     'main',
     {
-      className: 'main',
-      attributes: {
-        hidden: '',
-      },
+      className: styles.main,
+      attributes: { hidden: '' },
     },
     [results, details],
   );
+
+  return { element, results, details };
 }
 
 export { createMain };

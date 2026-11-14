@@ -1,0 +1,54 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+  background: var(--color-background);
+}
+
+body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  min-width: 320px;
+  min-height: 100vh;
+  padding: 48px 32px;
+  overflow-x: hidden;
+  color: var(--color-text);
+  font-family: var(--font-main);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgb(39 43 49 / 35%), transparent 65%),
+    var(--color-background);
+
+  &::before {
+    position: fixed;
+    z-index: -1;
+    inset: 0;
+    background: repeating-radial-gradient(
+      ellipse at 0% 0%,
+      transparent 0 38px,
+      rgb(255 255 255 / 2.5%) 39px 40px,
+      transparent 41px 48px
+    );
+    content: '';
+    pointer-events: none;
+  }
+}
+
+@media (width <= 900px) {
+  body {
+    padding: 32px 20px;
+  }
+}
+
+@media (width <= 480px) {
+  body {
+    gap: 24px;
+    padding: 24px 16px;
+  }
+}

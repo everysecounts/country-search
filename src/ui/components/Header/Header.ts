@@ -1,3 +1,4 @@
+import styles from './header.module.css';
 import { createElement } from '@/utils/createElement';
 
 function createHeader(): {
@@ -5,12 +6,12 @@ function createHeader(): {
   input: HTMLInputElement;
 } {
   const title = createElement('h1', {
-    className: 'header__title',
+    className: styles.headerTitle,
     textContent: 'Country Search',
   });
 
   const input = createElement('input', {
-    className: 'search__input',
+    className: styles.searchInput,
     attributes: {
       type: 'search',
       placeholder: 'Search countries...',
@@ -22,14 +23,12 @@ function createHeader(): {
   const search = createElement(
     'div',
     {
-      className: 'search',
+      className: styles.search,
     },
     [
       createElement('span', {
-        className: 'search__icon',
-        attributes: {
-          'aria-hidden': 'true',
-        },
+        className: styles.searchIcon,
+        attributes: { 'aria-hidden': 'true' },
       }),
       input,
     ],
@@ -38,7 +37,7 @@ function createHeader(): {
   const element = createElement(
     'header',
     {
-      className: 'header',
+      className: styles.header,
     },
     [title, search],
   );

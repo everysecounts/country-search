@@ -1,0 +1,25 @@
+.main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  width: min(100%, var(--content-width));
+  margin-inline: auto;
+
+  &[hidden] {
+    display: none;
+  }
+
+  &:has(aside:not([hidden])) {
+    grid-template-columns:
+      minmax(0, 1.4fr)
+      minmax(340px, 1fr);
+  }
+}
+
+@media (width <= 900px) {
+  .main {
+    &:has(aside:not([hidden])) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+}
