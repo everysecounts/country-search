@@ -8,6 +8,10 @@ function mapCountryResponse(raw: CountryApiResponse): CountryCard {
     region: raw.region,
     population: raw.population,
     languages: raw.languages.map(({ name }) => name),
+    subregion: undefined,
+    area: undefined,
+    currencies: [],
+    borders: [],
   };
 }
 
