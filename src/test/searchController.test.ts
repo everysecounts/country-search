@@ -117,6 +117,14 @@ function installFetchMock(): {
   return { requests, abortErrors };
 }
 
+function nextQuery(label: string): string {
+  return `${label}-${Math.random().toString(16).slice(2)}`;
+}
+
+function countryUrl(query: string): string {
+  return `https://countries.dev/name/${encodeURIComponent(query)}`;
+}
+
 describe('search controller request race', () => {
   afterEach(() => {
     vi.useRealTimers();
@@ -128,20 +136,23 @@ describe('search controller request race', () => {
 
     const { requests, abortErrors } = installFetchMock();
     const states: SearchState[] = [];
+    const earlyQuery = nextQuery('sp');
+    const laterQuery = nextQuery('spain');
 
     const controller = createSearchController((state) => states.push(state), 300);
 
-    controller.onQueryChange('sp');
+    controller.onQueryChange(earlyQuery);
     await vi.advanceTimersByTimeAsync(300);
 
     expect(requests).toHaveLength(1);
+    expect(requests[0].url).toBe(countryUrl(earlyQuery));
     expect(requests[0].signal.aborted).toBe(false);
 
     const earlyRejection = expect(requests[0].promise).rejects.toMatchObject({
       name: 'AbortError',
     });
 
-    controller.onQueryChange('spain');
+    controller.onQueryChange(laterQuery);
 
     expect(requests[0].signal.aborted).toBe(true);
 
@@ -154,7 +165,7 @@ describe('search controller request race', () => {
     await vi.advanceTimersByTimeAsync(300);
 
     expect(requests).toHaveLength(2);
-    expect(requests[1].url).toContain('/name/spain');
+    expect(requests[1].url).toBe(countryUrl(laterQuery));
     expect(requests[1].signal.aborted).toBe(false);
 
     requests[1].resolve(
@@ -166,7 +177,7 @@ describe('search controller request race', () => {
       expect(states.at(-1)?.countries[0].name).toBe('Spain');
     });
 
-    expect(states.at(-1)?.query).toBe('spain');
+    expect(states.at(-1)?.query).toBe(laterQuery);
     expect(states.some((state) => state.status === 'error')).toBe(false);
 
     controller.destroy();
@@ -177,22 +188,24 @@ describe('search controller request race', () => {
 
     const { requests } = installFetchMock();
     const states: SearchState[] = [];
+    const earlyQuery = nextQuery('ge');
+    const laterQuery = nextQuery('georgia');
 
     const controller = createSearchController((state) => states.push(state), 300, {
       abortOnInput: false,
     });
 
-    controller.onQueryChange('sp');
+    controller.onQueryChange(earlyQuery);
     await vi.advanceTimersByTimeAsync(300);
 
     expect(requests).toHaveLength(1);
 
-    controller.onQueryChange('spain');
+    controller.onQueryChange(laterQuery);
     await vi.advanceTimersByTimeAsync(300);
 
     expect(requests).toHaveLength(2);
-    expect(requests[0].url).toContain('/name/sp');
-    expect(requests[1].url).toContain('/name/spain');
+    expect(requests[0].url).toBe(countryUrl(earlyQuery));
+    expect(requests[1].url).toBe(countryUrl(laterQuery));
     expect(requests[0].signal.aborted).toBe(false);
     expect(requests[1].signal.aborted).toBe(false);
 
@@ -223,7 +236,7 @@ describe('search controller request race', () => {
     await Promise.resolve();
 
     expect(states).toHaveLength(stateCountAfterLaterResponse);
-    expect(states.at(-1)?.query).toBe('spain');
+    expect(states.at(-1)?.query).toBe(laterQuery);
     expect(states.at(-1)?.status).toBe('success');
     expect(states.at(-1)?.countries.map(({ name }) => name)).toEqual(['Spain']);
 
