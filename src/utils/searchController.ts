@@ -1,4 +1,4 @@
-import { searchCountries } from '@/api/searchCountries';
+import { searchCountriesWithCache } from '@/api/countrySearchService';
 import { mapCountryResponse } from '@/api/mapCountryResponse';
 import type { CountryApiResponse } from '@/types/country';
 import type {
@@ -63,7 +63,7 @@ function createSearchController(
     }, TIMEOUT_MS);
 
     try {
-      const rawCountries = await searchCountries(query, controller.signal);
+      const rawCountries = await searchCountriesWithCache(query, controller.signal);
 
       if (destroyed || currentRequestId !== requestId) return;
 
