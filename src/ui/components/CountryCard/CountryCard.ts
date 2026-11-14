@@ -6,10 +6,13 @@ function createCountryCard(
   country: CountryCardData,
   onSelect: (country: CountryCardData) => void,
 ): HTMLElement {
-  const flag = createElement('span', {
+  const flag = createElement('img', {
     className: styles.flag,
-    textContent: country.flag,
-    attributes: { 'aria-hidden': 'true' },
+    attributes: {
+      src: country.flag,
+      alt: `${country.name} flag`,
+      loading: 'lazy',
+    },
   });
 
   const name = createElement('h2', {

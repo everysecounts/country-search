@@ -13,10 +13,12 @@ function createCountryDetails(): HTMLElement {
 }
 
 function renderCountryDetails(container: HTMLElement, country: CountryCard): void {
-  const flag = createElement('span', {
+  const flag = createElement('img', {
     className: styles.flag,
-    textContent: country.flag,
-    attributes: { 'aria-hidden': 'true' },
+    attributes: {
+      src: country.flag,
+      alt: `${country.name} flag`,
+    },
   });
 
   const name = createElement('h2', {

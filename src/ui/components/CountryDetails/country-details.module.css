@@ -20,8 +20,11 @@
 }
 
 .flag {
-  font-size: 40px;
-  line-height: 1;
+  display: block;
+  width: 48px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 4px;
 }
 
 .name {
