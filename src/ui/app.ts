@@ -1,6 +1,11 @@
 import { createHeader } from '@/ui/components/Header';
 import { createMain } from '@/ui/components/Main';
-import { renderCountries, renderError, renderMessage } from '@/ui/components/SearchResults';
+import {
+  renderCountries,
+  renderError,
+  renderLoading,
+  renderMessage,
+} from '@/ui/components/SearchResults';
 import { renderCountryDetails } from '@/ui/components/CountryDetails';
 import type { CountryCard } from '@/types/country';
 import type { SearchState } from '@/types/searchController';
@@ -28,7 +33,7 @@ function createApp(root: HTMLElement): void {
     }
 
     if (state.status === 'loading') {
-      renderMessage(results, 'Searching...');
+      renderLoading(results);
       return;
     }
 

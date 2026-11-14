@@ -1,1 +1,7 @@
-export { createSearchResults, renderCountries, renderError, renderMessage } from './SearchResults';
+export {
+  createSearchResults,
+  renderCountries,
+  renderError,
+  renderLoading,
+  renderMessage,
+} from './SearchResults';

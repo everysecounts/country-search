@@ -48,4 +48,29 @@ function renderError(container: HTMLElement, message: string, onRetry: () => voi
   container.replaceChildren(errorMessage, retryButton);
 }
 
-export { createSearchResults, renderCountries, renderError, renderMessage };
+function renderLoading(container: HTMLElement): void {
+  const spinner = createElement('span', {
+    className: styles.spinner,
+    attributes: {
+      role: 'status',
+      'aria-label': 'Loading',
+    },
+  });
+
+  const message = createElement('p', {
+    className: styles.loadingMessage,
+    textContent: 'Searching countries...',
+  });
+
+  const loading = createElement(
+    'div',
+    {
+      className: styles.loading,
+    },
+    [spinner, message],
+  );
+
+  container.replaceChildren(loading);
+}
+
+export { createSearchResults, renderCountries, renderError, renderLoading, renderMessage };

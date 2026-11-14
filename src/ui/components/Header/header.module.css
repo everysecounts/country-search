@@ -41,6 +41,7 @@
   height: 17px;
   border: 2px solid var(--color-text-muted);
   border-radius: 50%;
+  bottom: 2px;
 
   &::after {
     position: absolute;
