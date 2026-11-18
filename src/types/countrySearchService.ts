@@ -1,11 +1,13 @@
+import type { CountryApiResponse } from '@/types/country';
+
 interface CacheEntry {
-  data: unknown[];
+  data: CountryApiResponse[];
   expiresAt: number;
 }
 
 interface InFlightRequest {
   controller: AbortController;
-  promise: Promise<unknown[]>;
+  promise: Promise<CountryApiResponse[]>;
   subscribers: Set<symbol>;
 }
 

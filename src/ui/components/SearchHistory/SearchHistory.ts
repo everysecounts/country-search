@@ -99,4 +99,3 @@ function renderSearchHistory(
 }
 
 export { createSearchHistory, renderSearchHistory };
-export type { SearchHistoryElements };

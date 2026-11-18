@@ -1,6 +1,5 @@
 import { searchCountriesWithCache } from '@/api/countrySearchService';
 import { mapCountryResponse } from '@/api/mapCountryResponse';
-import type { CountryApiResponse } from '@/types/country';
 import type {
   SearchController,
   SearchControllerOptions,
@@ -67,7 +66,7 @@ function createSearchController(
 
       if (destroyed || currentRequestId !== requestId) return;
 
-      const countries = (rawCountries as CountryApiResponse[]).map(mapCountryResponse);
+      const countries = rawCountries.map(mapCountryResponse);
 
       updateState(countries.length > 0 ? 'success' : 'empty', query, countries);
     } catch (error: unknown) {

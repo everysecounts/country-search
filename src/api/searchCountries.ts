@@ -1,6 +1,7 @@
 import { HttpError } from '@/api/HttpError';
+import type { CountryApiResponse } from '@/types/country';
 
-async function searchCountries(query: string, signal: AbortSignal): Promise<unknown[]> {
+async function searchCountries(query: string, signal: AbortSignal): Promise<CountryApiResponse[]> {
   const url = `https://countries.dev/name/${encodeURIComponent(query)}`;
 
   const response = await fetch(url, {
@@ -16,7 +17,7 @@ async function searchCountries(query: string, signal: AbortSignal): Promise<unkn
     throw new HttpError(response.status);
   }
 
-  return (await response.json()) as unknown[];
+  return (await response.json()) as CountryApiResponse[];
 }
 
 export { searchCountries };

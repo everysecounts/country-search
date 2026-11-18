@@ -1,3 +1,4 @@
+import type { CountryApiResponse } from '@/types/country';
 import { searchCountries } from '@/api/searchCountries';
 import type { CacheEntry, InFlightRequest } from '@/types/countrySearchService';
 
@@ -15,7 +16,7 @@ function getAbortReason(signal: AbortSignal): unknown {
   return signal.reason ?? new DOMException('The operation was aborted', 'AbortError');
 }
 
-function getCachedResult(key: string): unknown[] | undefined {
+function getCachedResult(key: string): CountryApiResponse[] | undefined {
   const entry = cache.get(key);
 
   if (!entry) {
@@ -33,7 +34,7 @@ function getCachedResult(key: string): unknown[] | undefined {
   return entry.data;
 }
 
-function setCachedResult(key: string, data: unknown[]): void {
+function setCachedResult(key: string, data: CountryApiResponse[]): void {
   cache.delete(key);
 
   cache.set(key, {
@@ -84,7 +85,7 @@ function subscribeToRequest(
   key: string,
   request: InFlightRequest,
   signal: AbortSignal,
-): Promise<unknown[]> {
+): Promise<CountryApiResponse[]> {
   return new Promise((resolve, reject) => {
     const subscriber = Symbol(key);
     let settled = false;
@@ -141,7 +142,10 @@ function subscribeToRequest(
   });
 }
 
-function searchCountriesWithCache(query: string, signal: AbortSignal): Promise<unknown[]> {
+function searchCountriesWithCache(
+  query: string,
+  signal: AbortSignal,
+): Promise<CountryApiResponse[]> {
   const normalizedQuery = query.trim();
 
   if (signal.aborted) {
