@@ -6,9 +6,11 @@
   --color-surface-hover: #1c2026;
   --color-border: #30353d;
   --color-text: #e5e0d5;
+  --color-text-secondary: #c5c0b6;
   --color-text-muted: #99958d;
   --color-accent: #d6a64e;
   --color-accent-light: #f0c878;
+  --color-error: #f87171;
   --font-main: arial, sans-serif;
   --font-heading: georgia, serif;
   --content-width: 1440px;

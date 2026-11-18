@@ -1,15 +1,9 @@
+import type { HeaderElements } from '@/types/header';
 import styles from './header.module.css';
 import { createElement } from '@/utils/createElement';
 import { createSearchHistory } from '@/ui/components/SearchHistory';
 
-function createHeader(): {
-  element: HTMLElement;
-  searchSection: HTMLElement;
-  input: HTMLInputElement;
-  history: HTMLElement;
-  historyList: HTMLElement;
-  historyClearButton: HTMLButtonElement;
-} {
+function createHeader(): HeaderElements {
   const title = createElement('h1', {
     className: styles.headerTitle,
     textContent: 'Country Search',
@@ -25,6 +19,25 @@ function createHeader(): {
     },
   });
 
+  const focusInput = (): void => {
+    if (document.activeElement !== input) {
+      input.focus();
+    }
+  };
+
+  const searchIcon = createElement('span', {
+    className: styles.searchIcon,
+    attributes: {
+      'aria-hidden': 'true',
+    },
+  });
+
+  searchIcon.addEventListener('mousedown', (event) => {
+    event.preventDefault();
+  });
+
+  searchIcon.addEventListener('click', focusInput);
+
   const clearButton = createElement('button', {
     className: styles.clearButton,
     attributes: {
@@ -35,10 +48,14 @@ function createHeader(): {
     textContent: '×',
   });
 
+  clearButton.addEventListener('mousedown', (event) => {
+    event.preventDefault();
+  });
+
   clearButton.addEventListener('click', () => {
     input.value = '';
     input.dispatchEvent(new Event('input', { bubbles: true }));
-    input.focus();
+    focusInput();
   });
 
   input.addEventListener('input', () => {
@@ -50,14 +67,7 @@ function createHeader(): {
     {
       className: styles.search,
     },
-    [
-      createElement('span', {
-        className: styles.searchIcon,
-        attributes: { 'aria-hidden': 'true' },
-      }),
-      input,
-      clearButton,
-    ],
+    [searchIcon, input, clearButton],
   );
 
   const {

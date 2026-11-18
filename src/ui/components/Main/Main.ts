@@ -1,13 +1,10 @@
+import type { MainElements } from '@/types/main';
 import { createCountryDetails } from '@/ui/components/CountryDetails';
 import { createSearchResults } from '@/ui/components/SearchResults';
 import { createElement } from '@/utils/createElement';
 import styles from './main.module.css';
 
-function createMain(): {
-  element: HTMLElement;
-  results: HTMLElement;
-  details: HTMLElement;
-} {
+function createMain(): MainElements {
   const results = createSearchResults();
   const details = createCountryDetails();
 

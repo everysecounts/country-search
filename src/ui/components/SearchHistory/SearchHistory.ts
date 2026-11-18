@@ -1,11 +1,6 @@
+import type { SearchHistoryElements } from '@/types/searchHistory';
 import { createElement } from '@/utils/createElement';
 import styles from './search-history.module.css';
-
-interface SearchHistoryElements {
-  element: HTMLElement;
-  list: HTMLElement;
-  clearButton: HTMLButtonElement;
-}
 
 function createSearchHistory(): SearchHistoryElements {
   const title = createElement('h2', {
