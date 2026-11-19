@@ -29,13 +29,13 @@
 	}
 })();
 var header_module_default = {
-	header: "_header_rif6k_1",
-	headerTitle: "_headerTitle_rif6k_19",
-	search: "_search_rif6k_37",
-	searchSection: "_searchSection_rif6k_75",
-	searchIcon: "_searchIcon_rif6k_85",
-	searchInput: "_searchInput_rif6k_129",
-	clearButton: "_clearButton_rif6k_173"
+	header: "_header_p2ac1_1",
+	headerTitle: "_headerTitle_p2ac1_10",
+	searchSection: "_searchSection_p2ac1_19",
+	search: "_search_p2ac1_19",
+	searchIcon: "_searchIcon_p2ac1_43",
+	searchInput: "_searchInput_p2ac1_65",
+	clearButton: "_clearButton_p2ac1_86"
 };
 // src/utils/createElement.ts
 function createElement(tagName, options = {}, children = []) {
@@ -52,14 +52,14 @@ function createElement(tagName, options = {}, children = []) {
 	return element;
 }
 var search_history_module_default = {
-	history: "_history_1uwyn_1",
-	heading: "_heading_1uwyn_43",
-	title: "_title_1uwyn_57",
-	clearButton: "_clearButton_1uwyn_69",
-	list: "_list_1uwyn_109",
-	item: "_item_1uwyn_135",
-	itemButton: "_itemButton_1uwyn_165",
-	removeButton: "_removeButton_1uwyn_211"
+	history: "_history_nkdm8_1",
+	heading: "_heading_nkdm8_21",
+	title: "_title_nkdm8_28",
+	clearButton: "_clearButton_nkdm8_34",
+	list: "_list_nkdm8_50",
+	item: "_item_nkdm8_61",
+	itemButton: "_itemButton_nkdm8_75",
+	removeButton: "_removeButton_nkdm8_100"
 };
 // src/ui/components/SearchHistory/SearchHistory.ts
 function createSearchHistory() {
@@ -141,6 +141,17 @@ function createHeader() {
 			autocomplete: "off"
 		}
 	});
+	const focusInput = () => {
+		if (document.activeElement !== input) input.focus();
+	};
+	const searchIcon = createElement("span", {
+		className: header_module_default.searchIcon,
+		attributes: { "aria-hidden": "true" }
+	});
+	searchIcon.addEventListener("mousedown", (event) => {
+		event.preventDefault();
+	});
+	searchIcon.addEventListener("click", focusInput);
 	const clearButton = createElement("button", {
 		className: header_module_default.clearButton,
 		attributes: {
@@ -150,19 +161,19 @@ function createHeader() {
 		},
 		textContent: "×"
 	});
+	clearButton.addEventListener("mousedown", (event) => {
+		event.preventDefault();
+	});
 	clearButton.addEventListener("click", () => {
 		input.value = "";
 		input.dispatchEvent(new Event("input", { bubbles: true }));
-		input.focus();
+		focusInput();
 	});
 	input.addEventListener("input", () => {
 		clearButton.hidden = input.value.length === 0;
 	});
 	const search = createElement("div", { className: header_module_default.search }, [
-		createElement("span", {
-			className: header_module_default.searchIcon,
-			attributes: { "aria-hidden": "true" }
-		}),
+		searchIcon,
 		input,
 		clearButton
 	]);
@@ -178,20 +189,20 @@ function createHeader() {
 	};
 }
 var country_details_module_default = {
-	details: "_details_1988a_1",
-	heading: "_heading_1988a_37",
-	flag: "_flag_1988a_55",
-	name: "_name_1988a_75",
-	overview: "_overview_1988a_91",
-	infoItem: "_infoItem_1988a_103",
-	infoLabel: "_infoLabel_1988a_125",
-	infoValue: "_infoValue_1988a_141",
-	statistics: "_statistics_1988a_155",
-	section: "_section_1988a_189",
-	sectionTitle: "_sectionTitle_1988a_201",
-	tags: "_tags_1988a_215",
-	tag: "_tag_1988a_215",
-	emptyValue: "_emptyValue_1988a_251"
+	details: "_details_1u5jx_1",
+	heading: "_heading_1u5jx_19",
+	flag: "_flag_1u5jx_28",
+	name: "_name_1u5jx_38",
+	overview: "_overview_1u5jx_46",
+	infoItem: "_infoItem_1u5jx_52",
+	infoLabel: "_infoLabel_1u5jx_63",
+	infoValue: "_infoValue_1u5jx_71",
+	statistics: "_statistics_1u5jx_78",
+	section: "_section_1u5jx_95",
+	sectionTitle: "_sectionTitle_1u5jx_101",
+	tags: "_tags_1u5jx_108",
+	tag: "_tag_1u5jx_108",
+	emptyValue: "_emptyValue_1u5jx_126"
 };
 // src/ui/components/CountryDetails/CountryDetails.ts
 function createCountryDetails() {
@@ -255,13 +266,13 @@ function renderCountryDetails(container, country) {
 	container.replaceChildren(heading, overview, statistics, currencySection, languageSection, borderSection);
 }
 var country_card_module_default = {
-	card: "_card_1l2tx_1",
-	flag: "_flag_1l2tx_47",
-	info: "_info_1l2tx_63",
-	name: "_name_1l2tx_77",
-	capital: "_capital_1l2tx_95",
-	region: "_region_1l2tx_97",
-	population: "_population_1l2tx_99"
+	card: "_card_1gw0v_1",
+	flag: "_flag_1gw0v_25",
+	info: "_info_1gw0v_33",
+	name: "_name_1gw0v_40",
+	capital: "_capital_1gw0v_49",
+	region: "_region_1gw0v_50",
+	population: "_population_1gw0v_51"
 };
 // src/ui/components/CountryCard/CountryCard.ts
 function createCountryCard(country, onSelect) {
@@ -308,12 +319,12 @@ function createCountryCard(country, onSelect) {
 	return card;
 }
 var search_results_module_default = {
-	results: "_results_2cjiz_1",
-	message: "_message_2cjiz_31",
-	retry: "_retry_2cjiz_49",
-	loading: "_loading_2cjiz_87",
-	spinner: "_spinner_2cjiz_107",
-	spin: "_spin_2cjiz_107"
+	results: "_results_1p5ab_1",
+	message: "_message_1p5ab_16",
+	retry: "_retry_1p5ab_25",
+	loading: "_loading_1p5ab_45",
+	spinner: "_spinner_1p5ab_55",
+	spin: "_spin_1p5ab_55"
 };
 // src/ui/components/SearchResults/SearchResults.ts
 function createSearchResults() {
@@ -364,7 +375,7 @@ function renderLoading(container) {
 	const loading = createElement("div", { className: search_results_module_default.loading }, [spinner, message]);
 	container.replaceChildren(loading);
 }
-var main_module_default = { main: "_main_1vvd6_1" };
+var main_module_default = { main: "_main_1b66m_1" };
 // src/ui/components/Main/Main.ts
 function createMain() {
 	const results = createSearchResults();
@@ -720,4 +731,4 @@ function createApp(root) {
 // src/main.ts
 createApp(document.body);
 
-//# sourceMappingURL=index-Bwl0IVb_.js.map
+//# sourceMappingURL=index-CyqI2CMN.js.map
