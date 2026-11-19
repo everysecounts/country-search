@@ -1,0 +1,91 @@
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  max-height: 460px;
+  overflow-y: auto;
+  padding: clamp(14px, calc(14px + (100vw - 480px) * (6 / 288)), 20px);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background: rgb(21 24 29 / 90%);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+.message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.retry {
+  align-self: flex-start;
+  padding: 10px 18px;
+  border: 1px solid var(--color-accent);
+  border-radius: 8px;
+  color: var(--color-accent-light);
+  font: inherit;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 120px;
+  color: var(--color-text-secondary);
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .retry {
+    &:hover {
+      border-color: var(--color-accent);
+      color: var(--color-background);
+      background: var(--color-accent);
+    }
+  }
+}
+
+@media (width <= 600px) {
+  .results {
+    gap: 10px;
+    max-height: 460px;
+    padding: 14px;
+  }
+
+  .retry {
+    min-height: 44px;
+    padding-inline: 18px;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
